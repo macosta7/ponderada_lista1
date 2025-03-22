@@ -188,7 +188,7 @@ III) O código não funciona corretamente, pois Funcionario não pode herdar de 
 
 Quais das seguintes afirmações são verdadeiras sobre o código acima?
 
-a) I e II são verdadeiras.
+``a) I e II são verdadeiras.``
 
 b) I, II e III são verdadeiras.
 
@@ -197,7 +197,7 @@ c) Apenas II é verdadeira.
 d) Apenas I é verdadeira.
 
 ```javascript
-  //
+  // I) Quando a classe Funcionario é criada, ela extende a classe Pessoa, assim os atributos criados em Pessoa ficam acessíveis na classe Funcionário. Quando colocamos super(nome, idade); na classe Funcionario extendendo de Pessoa, estamos puxando as variáveis nome e idade que foram criadas em Pessoa para dentro da classe Funcionario permitindo que elas sejam criadas. II) Sim, o método apresentar() da classe Funcionaria sobrepõe o método apresentar() da classe Pessoa, porém, quando o método apresentar() da classe Funcionario é chamado, o super.apresentar() é chamado puxando o método apresentar() da classe pai, no caso a classe pessoa. Com isso, o retorno do código vai ser o método apresentar() da classe Pessoa aparecendo `Olá, meu nome é ${this.nome} e tenho ${this.idade} anos.` e logo em seguida `Meu salário é R$ ${this.salario}.` que está na função apresentar() da classe Funcionario. III) Afirmação falsa, pois o JavaScript suporta herança de classes.
 ```
 
 ______
@@ -209,12 +209,15 @@ ______
 
 a) A asserção é falsa e a razão é verdadeira.
 
-b) A asserção é verdadeira e a razão é falsa.
+``b) A asserção é verdadeira e a razão é falsa.``
 
 c) A asserção é verdadeira e a razão é verdadeira, mas a razão não explica a asserção.
 
 d) A asserção é verdadeira e a razão é verdadeira, e a razão explica a asserção.
 
+```javascript
+  // A asserção está correta pois em POO podemos crias diversas subclasses herdadas de uma classe pai e nessas subclasses podemos definir uma mesma função alterando apenas o que ela irá fazer em cada subclasse e no final podemos utilizar a herança para utilizar esse polimorfismo utilizando um mesmo método mas em cada classe filha ele faz algo  diferente. Já a Razão é falsa pois em JS não existe sobrecarga, mas caso criarmos dois métodos com o mesmo nome em uma classe mas sobrecarregarmos elas uma entrando um valor e na outro entrando dois valores, ao final o código vai acabar em erro, pois como não existe sobrecarga o último método criado irá substituir os outros criados anteriormente com o mesmo nome. 
+```
 ______
 
 # Questões dissertativas
@@ -222,13 +225,19 @@ ______
 
 ```javascript
 function somaArray(numeros) {
+    
+    let soma = 0;
 
-    for (i = 0; i < numeros.size; i++) {
-        soma = 2*numeros[i];
+    for (let i = 0; i < numeros.length; i++) {
+        soma = soma + (2 * numeros[i]);
     }
     return soma;
 }
 console.log(somaArray([1, 2, 3, 4]));
+```
+
+```javascript
+  // numeros.size não funciona em JS, o correto para dizermos o tamanho do array é numero.length. Outra coisa que estava errada era que as variáveis soma e i não estvam sendo declaradas, para cosertar isso declarei a variável soma utilizando let soma = 0; e a variável i utilizando let i = 0; dentro do for. A variável soma estava armazenando os números da lista multiplicados por 2 mas ao invés de soma os números multiplicados por 2, ela estava armazendando o número e depois o outro número substituia o númeero anterior e assim por diante. Para consertar isso eu coloquei que soma vai ser igual ao valor anterior da soma + o numero da lista vezes dois, assim no final teremos como resposta 20, que é a soma do dobro dos números do array.
 ```
 ______
 10) Crie um exemplo prático no qual você tenha duas classes:
@@ -237,3 +246,36 @@ ______
 - Uma classe `Livro` que herda de `Produto` e modifica o método `calcularDesconto()`, aplicando um desconto de 20% no preço dos livros.
 
 Explique como funciona a herança nesse contexto e como você implementaria a modificação do método na classe `Livro`.
+
+```javascript
+  class Produto {
+    constructor (nome, preco) {
+    this.nome = nome;
+    this.preco = preco;
+  }
+
+    calcularDesconto() {
+      return this.preco * 0,9; // Aplica um desconto de 10%
+    }
+  }
+
+  class Livro extends Produto { // Cria a classe Livro herdando os atributos de Produto
+    constructor (nome, preco) {
+      super(nome, preco);
+    }
+
+    calcularDesconto() {
+      return this.preco * 0.8; // Aplica um desconto de 20%
+    }
+  }
+
+  // Criando instâncias e testando
+  const produto = new Produto("Computador", 2000);
+  console.log(`Preço do Produto com desconto: R$ ${produto.calcularDesconto()}`);
+
+  const livro = new Livro("Programação", 100);
+  console.log(`Preço do Livro com desconto: R$ ${livro.calcularDesconto()}`);
+```
+```javascript
+  // A classe Livro herda os atributos (nome e preco) da classe Produto, assim a classe Livro pode utilizar essas variáveis dentro do escopo da classe, evitando a repetição de código. Quando o método calcularDesconto() dentro da classe Livro é chamado eu calculei o desconto multiplicando o preço do produto por 0.8, assim será aplicado um desconte de 20% em cima do Livro
+```
